@@ -12,6 +12,8 @@ from flask import redirect
 from flask import render_template
 from flask import session
 from flask import url_for
+from flask import request
+import requests
 from authlib.integrations.flask_client import OAuth
 from six.moves.urllib.parse import urlencode
 
@@ -27,6 +29,10 @@ AUTH0_CLIENT_SECRET = env.get(constants.AUTH0_CLIENT_SECRET)
 AUTH0_DOMAIN = env.get(constants.AUTH0_DOMAIN)
 AUTH0_BASE_URL = 'https://' + AUTH0_DOMAIN
 AUTH0_AUDIENCE = env.get(constants.AUTH0_AUDIENCE)
+
+OPA_ADDR = env.get('OPA_ADDR')
+OPA_POLICY_PATH = env.get('OPA_POLICY_PATH')
+
 
 app = Flask(__name__, static_url_path='/public', static_folder='./public')
 app.secret_key = constants.SECRET_KEY
@@ -65,6 +71,27 @@ def requires_auth(f):
     return decorated
 
 
+def requires_opa_authz(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        input = {
+            "method": request.method,
+            "parsed_path": request.path.split("/")[1:],
+            "token": session['id_token']
+        }
+        try:
+            response = requests.post(OPA_ADDR + OPA_POLICY_PATH, data=json.dumps({"input": input}))
+            response.raise_for_status()
+            print(response)
+            if response.json()['result'] == False:
+                return "Forbidden", 403
+        except:
+            return "Forbidden", 403
+        return f(*args, **kwargs)
+
+    return decorated
+
+
 # Controllers API
 @app.route('/')
 def home():
@@ -73,7 +100,9 @@ def home():
 
 @app.route('/callback')
 def callback_handling():
-    auth0.authorize_access_token()
+    token = auth0.authorize_access_token()
+    session['id_token'] = token['id_token']
+
     resp = auth0.get('userinfo')
     userinfo = resp.json()
 
@@ -100,6 +129,7 @@ def logout():
 
 @app.route('/dashboard')
 @requires_auth
+@requires_opa_authz
 def dashboard():
     return render_template('dashboard.html',
                            userinfo=session[constants.PROFILE_KEY],
