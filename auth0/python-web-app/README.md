@@ -25,6 +25,7 @@ Run `opa run --server --config-file=opa-conf.yaml`
 ## Authors
 
 [Auth0](https://auth0.com)
+
 [Styra](https://styra.com)
 
 ## License
