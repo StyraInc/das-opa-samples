@@ -15,7 +15,7 @@ allow {
 action_allowed {
 	input.method == "GET"
 	input.parsed_path = ["dashboard"]
-	permissions := token.payload["https://example.com/permissions"]
+	permissions := token.payload["https://styra/permissions"]
 	permissions.dashboard[_] == "view"
 }
 
