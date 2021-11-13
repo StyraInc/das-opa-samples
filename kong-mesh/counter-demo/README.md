@@ -138,11 +138,11 @@ deny = true {
 
 5. Return to the Counter demo app in the browser click the **Reset** button.
 
-  The request now returns an error.
+    The request now returns an error.
   
-  > In a real world app we would update the UI to handle the error with a more appropriate message (or better yet, we could integrate the app UI with OPA policy as well, to hide the **Reset** button when the user is not authorized - but this is beyond the scope of this guide).
+    > In a real world app we would update the UI to handle the error with a more appropriate message (or better yet, we could integrate the app UI with OPA policy as well, to hide the **Reset** button when the user is not authorized - but this is beyond the scope of this guide).
   
-  You can view the details of the response, including the 403 status code in your browser DevTools Network panel. 
+    You can view the details of the response, including the 403 status code in your browser DevTools Network panel. 
 
 6. Go to **Counter Demo App**, then click **Decisions**.
 
