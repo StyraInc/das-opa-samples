@@ -110,7 +110,7 @@ slp-a33f416cca2c45b6afe885a59791f3da-5bb744f4b8-zqxln   2/2     Running   0     
 
     You will see a log of all **Allowed** decisions for the prior OPA authorization queries.  
     
-    These decisions were captured by OPA and sent to DAS when you tested the app functionality in step 5. You will see different types of requests across a variety of methods (e.g. `GET`, `POST`, `DELETE`) and URI paths (e.g. `/version`, `/counter`, `/increment`).
+    These decisions were captured by OPA and sent to DAS when you tested the app functionality in step 6. You will see different types of requests across a variety of methods (e.g. `GET`, `POST`, `DELETE`) and URI paths (e.g. `/version`, `/counter`, `/increment`).
 
 3. Find a decision result for a `DELETE` request by typing `method:DELETE` in the search box at the bottom of the Decisions page. Click the Replay icon next to the **Allowed** decision log line.
 
@@ -132,7 +132,7 @@ deny = true {
 
   * This policy will now explicitly deny access to the `/counter` path for the `DELETE` method, and allow all other requests.  
   
-  * You can use the **Preview** and **Validate** buttons to evaluate the draft policy and run impact analysis that this change will have against past decisions.
+  * You can use the **Preview** and **Validate** buttons to evaluate the draft policy and run change impact analysis via decision log replay.
   
   * Click **Publish** to save and distribute the policy.  Within 30 seconds or so, the OPA engine in the dataplane proxy sidecar will automatically load the policy change.
 
@@ -152,7 +152,7 @@ deny = true {
 
 While combining `allow` and `deny` rules in a policy is possible with DAS and OPA, a more realistic/idiomatic Rego policy would implement a secure "deny by default" approach with explicit allow rules.
 
-With Rego we can also implement any kind of authorization model including RBAC, ABAC, and more.  A popular approach to ABAC policies for web applications is to check attributes (or claims) in a JSON Web Token.
+With Rego we can also implement any kind of authorization model including [RBAC](https://www.openpolicyagent.org/docs/latest/comparison-to-other-systems/#role-based-access-control-rbac), [ABAC](https://www.openpolicyagent.org/docs/latest/comparison-to-other-systems/#attribute-based-access-control-abac), and more.  A popular approach to ABAC policies for web applications is to check attributes (or claims) in a JSON Web Token ([JWT](https://www.openpolicyagent.org/docs/latest/faq/#json-web-tokens-jwts)).
 
 Let’s create a final policy with the following rules:
 * Deny all requests by default
@@ -204,9 +204,9 @@ bearer_token := t {
 
 3. Refresh the app in the browser and click on each of the **Increment** and **Reset** buttons.
 
-  As before, the **Increment** request will be **Allowed** and the **Reset** request will be **Denied**
+    As before, the **Increment** request will be **Allowed** and the **Reset** request will be **Denied**
 
-  However, if we execute a `DELETE` request to `/counter` with a proper JWT the request should be allowed.  
+    However, if we execute a `DELETE` request to `/counter` with a proper JWT the request should be allowed.  
   
 4. Execute a request with a JWT via curl:
 ```sh
@@ -220,8 +220,8 @@ You can use http://jwt.io to view the contents of the encoded token in the curl 
 ]
 ```
 
-> Note: the HS256 algorithm with a hardcoded secret is used in this guide for simplicity.  OPA supports a variety of algorithms for [Token Verification](https://www.openpolicyagent.org/docs/latest/policy-reference/#token-verification) that would be a better choice for a production implementation.
+> The HS256 algorithm with a hardcoded secret is used in this guide for simplicity.  OPA supports a variety of algorithms for [Token Verification](https://www.openpolicyagent.org/docs/latest/policy-reference/#token-verification) that would be a better choice for a production implementation.
 
 5. Check the Styra DAS Decisions to see the final `DELETE` request to `/counter` is **Allowed**.
 
-> Note: the Authorization header is removed from the DAS decision log by default, so you won’t see the bearer token value in decision log JSON, rather it will be identified as an `erased` field.  This behavior is controlled by the `/system/log/mask.rego` policy.  You can comment out, delete or modify this policy as desired if you want the token values to remain in the logs.  
+> The Authorization header is removed from the DAS decision log by default, so you won’t see the bearer token value in decision log JSON, rather it will be identified as an `erased` field.  The [Decision Masking](https://www.openpolicyagent.org/docs/latest/management-decision-logs/#masking-sensitive-data) behavior is controlled by the `/system/log/mask.rego` policy.  You can comment out, delete or modify this policy as desired if you want the token values to remain in the logs.  
