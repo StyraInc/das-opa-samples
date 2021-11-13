@@ -98,7 +98,7 @@ redis-8474446f-96gzk                                    2/2     Running   0     
 slp-a33f416cca2c45b6afe885a59791f3da-5bb744f4b8-zqxln   2/2     Running   0          53s
 ```
 
-6. Refresh `http://${SERVICE_URL}` in your browser and verify the app is working. Click on both of the **Increment** and **Reset** buttons.
+6. Refresh `http://${SERVICE_URL}` in your browser and verify the app is working. Click on each of the **Increment** and **Reset** buttons.
 
 ### 7. Implement Authorization Rules in OPA via Styra DAS
 
