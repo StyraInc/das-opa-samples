@@ -83,13 +83,14 @@ echo $SERVICE_URL
 
 ![](images/all-the-things.png)
 
-> Don’t worry about Alice and the JWT token yet, we’ll get to that later.  At this point all the components represented by the boxes are deployed and running.
+> Don’t worry about the picture of Alice and the JWT token yet, we’ll get to that later.  At this point all the components represented by the boxes are deployed and running.
 
 > Neither the SLP nor DAS are in the hot path for an authorization request.  The OPA engine embedded within the Kong dataplane proxy periodically retrieves the policy rules from DAS (via the SLP) and stores them in memory. No external requests to the SLP (nor any other system) are needed for the dataplane proxy + embedded OPA engine to authorize an individual request.
 
 5. Restart all the Deployments in the `kuma-demo` namespace to enable the configuration changes
 ```sh
 kubectl rollout restart deployments
+
 kubectl get pods
 NAME                                                    READY   STATUS    RESTARTS   AGE
 demo-app-cb8c85c76-xv9cx                                2/2     Running   0          53s
@@ -107,11 +108,11 @@ slp-a33f416cca2c45b6afe885a59791f3da-5bb744f4b8-zqxln   2/2     Running   0     
 
 2. Go to **Counter Demo App**, then click **Decisions**.
 
-    You will see a log of all <span style="background-color:ForestGreen;color:white;">Allowed</span> decisions for the prior OPA authorization queries.  
+    You will see a log of all **Allowed** decisions for the prior OPA authorization queries.  
     
     These decisions were captured by OPA and sent to DAS when you tested the app functionality in step 5. You will see different types of requests across a variety of methods (e.g. `GET`, `POST`, `DELETE`) and URI paths (e.g. `/version`, `/counter`, `/increment`).
 
-3. Find a decision result for a `DELETE` request by typing `method:DELETE` in the search box at the bottom of the Decisions page. Click the Replay icon next to the <span style="background-color:ForestGreen;color:white;">Allowed</span> decision log line.
+3. Find a decision result for a `DELETE` request by typing `method:DELETE` in the search box at the bottom of the Decisions page. Click the Replay icon next to the **Allowed** decision log line.
 
     The **policy > ingress > rules.rego** file editor will be opened in the browser.
 
@@ -145,7 +146,7 @@ deny = true {
 
 6. Go to **Counter Demo App**, then click **Decisions**.
 
-    You will see a new <span style="background-color:RoyalBlue;color:white;">Denied</span> decision log entry for the `DELETE` `/counter` request.
+    You will see a new **Denied** decision log entry for the `DELETE` `/counter` request.
 
 ### 8. Implement fine-grained AuthZ rule with JWT validation
 
@@ -203,7 +204,7 @@ bearer_token := t {
 
 3. Refresh the app in the browser and click on each of the **Increment** and **Reset** buttons.
 
-  As before, the **Increment** request will be <span style="background-color:ForestGreen;color:white;">Allowed</span> and the **Reset** request will be <span style="background-color:RoyalBlue;color:white;">Denied</span>
+  As before, the **Increment** request will be **Allowed** and the **Reset** request will be **Denied**
 
   However, if we execute a `DELETE` request to `/counter` with a proper JWT the request should be allowed.  
   
@@ -221,6 +222,6 @@ You can use http://jwt.io to view the contents of the encoded token in the curl 
 
 > Note: the HS256 algorithm with a hardcoded secret is used in this guide for simplicity.  OPA supports a variety of algorithms for [Token Verification](https://www.openpolicyagent.org/docs/latest/policy-reference/#token-verification) that would be a better choice for a production implementation.
 
-5. Check the Styra DAS Decisions to see the final `DELETE` request to `/counter` is <span style="background-color:ForestGreen;color:white;">Allowed</span>.
+5. Check the Styra DAS Decisions to see the final `DELETE` request to `/counter` is **Allowed**.
 
 > Note: the Authorization header is removed from the DAS decision log by default, so you won’t see the bearer token value in decision log JSON, rather it will be identified as an `erased` field.  This behavior is controlled by the `/system/log/mask.rego` policy.  You can comment out, delete or modify this policy as desired if you want the token values to remain in the logs.  
