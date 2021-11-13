@@ -59,7 +59,7 @@ echo $SERVICE_URL
 
 4. Open `http://${SERVICE_URL}` in your browser and verify the app is working.
 
-### 4. Create a Kong Mesh System in Styra DAS
+### 5. Create a Kong Mesh System in Styra DAS
 
 1. Go to your Styra DAS Free tenant and Create a System **(+)**
 2. Select **Kong Mesh** System type
@@ -67,7 +67,7 @@ echo $SERVICE_URL
 4. Toggle **off** the Launch Quick Start option 
 5. Select **Add System**.
 
-### 5. Configure Kong Mesh and OPA for Styra DAS
+### 6. Configure Kong Mesh and OPA for Styra DAS
 
 1. Go to **Counter Demo App > Settings > Install**
 2. Copy and run the first command `# Configure Kong Mesh`
@@ -99,7 +99,7 @@ slp-a33f416cca2c45b6afe885a59791f3da-5bb744f4b8-zqxln   2/2     Running   0     
 
 6. Refresh `http://${SERVICE_URL}` in your browser and verify the app is working. Click on both of the **Increment** and **Reset** buttons.
 
-### 6. Implement Authorization Rules in OPA via Styra DAS
+### 7. Implement Authorization Rules in OPA via Styra DAS
 
 1. Go to **Counter Demo App > policy > ingress > rules.rego**
 
@@ -147,7 +147,7 @@ deny = true {
 
     You will see a new <span style="background-color:RoyalBlue;color:white;">Denied</span> decision log entry for the `DELETE` `/counter` request.
 
-### 7. Implement fine-grained AuthZ rule with JWT validation
+### 8. Implement fine-grained AuthZ rule with JWT validation
 
 While combining `allow` and `deny` rules in a policy is possible with DAS and OPA, a more realistic/idiomatic Rego policy would implement a secure "deny by default" approach with explicit allow rules.
 
