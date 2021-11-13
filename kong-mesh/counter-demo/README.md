@@ -73,7 +73,7 @@ echo $SERVICE_URL
 2. Copy and run the first command `# Configure Kong Mesh`
 
     This command creates/updates the following resources:
-    * `opapolicy.kuma.io/opa-policy-das` (created).  This resource defines the `OPAPolicy`, and configures the OPA engine within the dataplane proxy to use an external management service (named “styra”) to manage the OPA rules and decisions.
+    * `opapolicy.kuma.io/opa-policy-das` (created).  This resource defines the Kong Mesh [OPAPolicy](https://docs.konghq.com/mesh/1.4.x/features/opa/), and configures the OPA engine within the dataplane proxy to use an external management service (named “styra”) to manage the OPA rules and decisions.
     * `proxytemplate.kuma.io/opa-ext-authz-filter` (created).  This resource configures the dataplane proxy to utilize OPA for authorization for outbound egress requests.  The default configuration for the proxy sets up OPA only for ingress request authorization. Styra adds the egress configuration as well for users who wish to enforce egress authorization rules. (In this lab we won’t create egress rules, but the capability is there.)
     * `configmap/kong-mesh-control-plane-config` (configured).  This resource adds a configuration override to the default OPA config created by Kong Mesh.  This override defines the main `path` for the policy rule that the OPA plugin should invoke during an authorization request.  Styra DAS has an opinionated package and rule structure for policies, and therefore the `path` value needs to match the package/rule endpoint that DAS creates in an OPA instance.
 
