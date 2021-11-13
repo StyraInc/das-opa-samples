@@ -213,7 +213,7 @@ bearer_token := t {
 curl -X DELETE -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjMxNTM2MDAwMCwiaWF0IjoxNjM2NzYzMDA2LCJwZXJtaXNzaW9ucyI6WyJkZWxldGUiXSwidXNlcm5hbWUiOiJhbGljZSJ9.BrFGBkO-8PIL7hgj7geiCWJvoGUpm1NUBj7NHx9mXI8" "http://${SERVICE_URL}/counter"
 ```
 
-You can use http://jwt.io to view the contents of the encoded token in the curl command above. You will see the token contains the following `permissions` claim:
+You can use http://jwt.io to view the contents of the encoded token that is used in the curl command above. Once decoded, you will see the token contains the following `permissions` claim:
 ```json
 "permissions": [
   "delete"
