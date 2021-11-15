@@ -222,6 +222,6 @@ You can use http://jwt.io to view the contents of the encoded token that is used
 
 > The HS256 algorithm with a hardcoded secret is used in this guide for simplicity.  OPA supports a variety of algorithms for [Token Verification](https://www.openpolicyagent.org/docs/latest/policy-reference/#token-verification) that would be a better choice for a production implementation.
 
-5. Check the Styra DAS Decisions to see the final `DELETE` request to `/counter` is **Allowed**.
+5. Check the Styra DAS **Decisions** to see the final `DELETE` request to `/counter` is **Allowed**.
 
 > The Authorization header is removed from the DAS decision log by default, so you won’t see the bearer token value in decision log JSON, rather it will be identified as an `erased` field.  The [Decision Masking](https://www.openpolicyagent.org/docs/latest/management-decision-logs/#masking-sensitive-data) behavior is controlled by the `/system/log/mask.rego` policy.  You can comment out, delete or modify this policy as desired if you want the token values to remain in the logs.  
