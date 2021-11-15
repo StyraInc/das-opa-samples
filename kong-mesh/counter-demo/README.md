@@ -148,7 +148,7 @@ deny = true {
 
     You will see a new **Denied** decision log entry for the `DELETE` `/counter` request.
 
-### 8. Implement fine-grained AuthZ rule with JWT validation
+### 8. Implement fine-grained AuthZ with JWT validation
 
 While combining `allow` and `deny` rules in a policy is possible with DAS and OPA, a more realistic/idiomatic Rego policy would implement a secure "deny by default" approach with explicit allow rules.
 
