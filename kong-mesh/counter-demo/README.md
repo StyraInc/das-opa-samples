@@ -31,7 +31,7 @@ Execute the instructions through the [Set up and run](https://kuma.io/docs/1.3.1
 
 ### 4. Expose the Demo App Service
 
-Our goal in this guide is to implement authorization via the OPA engine embedded in the dataplane proxy for the `demo-app` web application. Therefore we want end user requests to the front end of the app to go through the sidecar proxy instance. To ensure the HTTP requests flow through the proxy we need to expose the app via a Kubernetes `NodePort` or `LoadBalancer` service.  (If we used `port-forward` to access the web app, the requests would bypass the dataplane proxy and OPA authorization.)
+Our goal in this guide is to implement authorization via the OPA engine embedded in the dataplane proxy for the `demo-app` web application. Therefore we want end user requests to the front end of the app to go through the sidecar proxy instance. To ensure the HTTP requests flow through the proxy we need to expose the app via a Kubernetes `NodePort` or `LoadBalancer` service.  _(If we used `port-forward` to access the web app, the requests would bypass the dataplane proxy and OPA authorization.)_
 
 > Could we use Kong Gateway as a Kubernetes Ingress to the `demo-app` Service instead? 
 
