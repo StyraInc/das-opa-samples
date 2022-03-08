@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: grpcbin
+  labels:
+    app: grpcbin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpcbin
+  template:
+    metadata:
+      annotations:
+        kuma.io/virtual-probes-port: "19001"
+        # kuma.io/virtual-probes: disabled
+      labels:
+        app: grpcbin
+    spec:
+      containers:
+      - image: moul/grpcbin
+        name: grpcbin
+        ports:
+        - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpcbin
+  annotations:
+    9000.service.kuma.io/protocol: grpc
+  labels:
+    app: grpcbin
+spec:
+  ports:
+  - port: 9000
+    protocol: TCP
+    targetPort: 9000
+    nodePort: 30090
+  selector:
+    app: grpcbin
+  type: NodePort
