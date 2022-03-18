@@ -19,15 +19,15 @@ minikube start
 
 ### 2. Install Kong Mesh
 
-Install and run Kong Mesh on your Kubernetes cluster per the [Kong Mesh Installation guide](https://docs.konghq.com/mesh/1.4.x/installation/kubernetes/)
+Install and run Kong Mesh on your Kubernetes cluster per the [Kong Mesh Installation guide](https://docs.konghq.com/mesh/latest/installation/kubernetes/)
 
-_This guide has been tested with Kong Mesh 1.4.1_
+_This guide has been tested with Kong Mesh 1.6.0_
 
 ### 3. Deploy the Demo App
 
-Deploy the Kuma [Counter Demo](https://github.com/kumahq/kuma-counter-demo) app per the [Quickstart guide](https://kuma.io/docs/1.3.1/quickstart/kubernetes/).
+Deploy the Kuma [Counter Demo](https://github.com/kumahq/kuma-counter-demo) app per the [Quickstart guide](https://kuma.io/docs/latest/quickstart/kubernetes/).
 
-Execute the instructions through the [Set up and run](https://kuma.io/docs/1.3.1/quickstart/kubernetes/#set-up-and-run) step only.  (For this guide, there is no need to enable Mutual TLS, Traffic Permissions or Traffic Metrics.)
+Execute the instructions through the [Set up and run](https://kuma.io/docs/latest/quickstart/kubernetes/#set-up-and-run) step only.  (For this guide, there is no need to enable Mutual TLS, Traffic Permissions or Traffic Metrics.)
 
 ### 4. Expose the Demo App Service
 
